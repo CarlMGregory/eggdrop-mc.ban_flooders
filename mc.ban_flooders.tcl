@@ -1,5 +1,5 @@
 ##
-# Ban Flooders v2.1.2
+# Ban Flooders v2.1.3
 #  by MC_8 - Carl M. Gregory <mc8@purehype.net>
 #  This script will only run on eggdrop 1.5.5 or greater.
 #
@@ -188,9 +188,9 @@ set mc_bf(svs:mode) 0
 #Script:mc_bf
 
 set mc_bf(script)      "Ban Flooders"
-set mc_bf(version)     "v2.1.2"
+set mc_bf(version)     "v2.1.3"
 set mc_bf(svs:script)  "banflooders"
-set mc_bf(svs:version) "002001002000"
+set mc_bf(svs:version) "002001003000"
 set mc_bf(svs:server)  "mc.svs.purehype.net"
 set mc_bf(svs:port)    "81"
 set mc_bf(svs:get)     "/index.tcl"
@@ -334,9 +334,9 @@ proc mc:bf:flud_ {nick uhost hand type chan} {
         if {!$temp(time)} {set temp(duration) "permanent"} \
         else {
           # When wrighting, the maximum number [unixtime] can represent is
-          # 9999999999.  This may need adjusting if eggdrop decides to go
+          # 1999999999.  This may need adjusting if eggdrop decides to go
           # higher.
-          set limit [expr (9999999999-[clock seconds])/60] ;# Minutes
+          set limit [expr (1999999999-[clock seconds])/60] ;# Minutes
           if {$temp(time) > $limit} {
             set temp(1) "Timer number too high"
             set temp(2) "converting; $temp(time) -> $limit"
@@ -387,9 +387,9 @@ proc mc:bf:flud_ {nick uhost hand type chan} {
           if {!$temp(time)} {set temp(duration) "permanent"} \
           else {
             # When wrighting, the maximum number [unixtime] can represent is
-            # 9999999999.  This may need adjusting if eggdrop decides to go
+            # 1999999999.  This may need adjusting if eggdrop decides to go
             # higher.
-            set limit [expr (9999999999-[clock seconds])/60] ;# Minutes
+            set limit [expr (1999999999-[clock seconds])/60] ;# Minutes
             if {$temp(time) > $limit} {
               set temp(1) "Timer number too high"
               set temp(2) "converting; $temp(time) -> $limit"
@@ -861,6 +861,10 @@ putlog "$mc_bf(script) $mc_bf(version) by MC_8 loaded."
 ##
 # HISTORY  ( <Fixed by> - [Found by] - <Info> )
 ##
+# v2.1.3 (07.06.03)
+#  MC_8 - W0lF - Fixed 'integer value too large to represent'.
+#                Bugzilla Bug 294 
+#
 # v2.1.2 (07.02.03)
 #  MC_8 - W0lF - Fixed 'couldn't compile regular expression pattern: nested
 #                *?+'.  Updated maskhostbytype.  v2.0 -> v2.1
