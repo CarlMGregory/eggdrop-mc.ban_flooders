@@ -1,5 +1,5 @@
 ##
-# Ban Flooders v2.1.1
+# Ban Flooders v2.1.2
 #  by MC_8 - Carl M. Gregory <mc8@purehype.net>
 #  This script will only run on eggdrop 1.5.5 or greater.
 #
@@ -188,9 +188,9 @@ set mc_bf(svs:mode) 0
 #Script:mc_bf
 
 set mc_bf(script)      "Ban Flooders"
-set mc_bf(version)     "v2.1.1"
+set mc_bf(version)     "v2.1.2"
 set mc_bf(svs:script)  "banflooders"
-set mc_bf(svs:version) "002001001000"
+set mc_bf(svs:version) "002001002000"
 set mc_bf(svs:server)  "mc.svs.purehype.net"
 set mc_bf(svs:port)    "81"
 set mc_bf(svs:get)     "/index.tcl"
@@ -575,11 +575,10 @@ proc mc:bf:findnicks {{args ""}} {
 
 # maskhostbytype <nick!ident@host.domain> [type]
 #     version:
-#       v2.0
+#       v2.1
 proc mc:bf:maskhostbytype {{args ""}} {
   mc:bf:badargs $args 1 2 "nick!ident@host.domain ?type?"
   mc:bf:unlist $args nuhost type
-
 
   set type [expr {($type == "")?5:$type}]
   if {![regexp -- {^1?[0-9]$} $type]} {
@@ -595,7 +594,7 @@ proc mc:bf:maskhostbytype {{args ""}} {
   # 63, however I made it to a variable incase someone wants to change it up.
   set host_max-length 63
 
-  if {![regexp -- {^(.*?)!((.*)@(.*))$} $nuhost -> nick uhost ident host]} {
+  if {![regexp -- {^(.*[^!])!((.*)@(.*))$} $nuhost -> nick uhost ident host]} {
     error "invalid nick!ident@host.domain: $nuhost"
   }
 
@@ -862,6 +861,11 @@ putlog "$mc_bf(script) $mc_bf(version) by MC_8 loaded."
 ##
 # HISTORY  ( <Fixed by> - [Found by] - <Info> )
 ##
+# v2.1.2 (07.02.03)
+#  MC_8 - W0lF - Fixed 'couldn't compile regular expression pattern: nested
+#                *?+'.  Updated maskhostbytype.  v2.0 -> v2.1
+#                Bugzilla Bug 293
+#
 # v2.1.1 (05.26.03)
 #  MC_8      / - Farrago - If bantime number is too high, the ban will expire in
 #  MaSsKilla               1 minute.  This is caused by the limit eggdrop puts 
